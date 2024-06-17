@@ -9,11 +9,18 @@ const [darkMode, setDarkmode] = useState(true)
 
 
 useEffect(() => {
+    console.log("Initial Theme")
     const theme = localStorage.getItem("theme")
     if(theme === 'dark') setDarkmode(true)
 }, [])
 
 useEffect(() => {
+    console.log("Here is the reason of changing theme after changing lang!! ")
+}, [darkMode])
+
+
+const handleClick = () => {
+    setDarkmode(!darkMode)
     if(darkMode) {
         document.documentElement.classList.add('dark')
         localStorage.setItem("theme", "dark")
@@ -22,14 +29,13 @@ useEffect(() => {
         document.documentElement.classList.remove('dark')
         localStorage.setItem("theme", "light")
         console.log("Here light")
-
     }
-}, [darkMode])
+}
 
   return (
     <div
         className='relative w-16 h-8 flex items-center dark:bg-slate-600 bg-sky-300 cursor-pointer rounded-full p-1'
-        onClick={() => setDarkmode(!darkMode)}
+        onClick={handleClick}
    >
        <FaMoon className='text-white' size={18} />
        <div className='absolute bg-white w-6 h-6 rounded-full shadow-md transform transition-transform duration-300'
